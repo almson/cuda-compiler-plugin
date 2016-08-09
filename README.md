@@ -1,6 +1,6 @@
 # Introduction
 
-This Maven plugin helps when working with mixed Java/CUDA projects (such as those powered by JCUDA) by invoking `nvcc` in order to compile any CUDA kernel source files (ie those ending in `.cu` or `.ptx`) found in the project sources directory. The outputs will then be included in the jar file. The plugin will check modification times and avoid re-compiling the sources if it is not necessary. Compilation is multi-threaded. Supports Linux and Windows. (Not tested on Mac OS).
+This Maven plugin helps when working with mixed Java/CUDA projects (such as those powered by [JCuda](http://jcuda.org)) by invoking `nvcc` to compile any CUDA kernel source files (ie those ending in `.cu` or `.ptx`) found in the project sources directory. The outputs will then be included in the jar file. The plugin will check modification times and avoid re-compiling the sources if it is not necessary. Compilation is multi-threaded. Supports Linux and Windows. (Not tested on Mac OS).
 
 # Installation
 
@@ -33,13 +33,15 @@ In your `pom.xml` add:
 
 Customize the option `nvccOptions` according to your needs. You can build ptx, cubin, and fatbin outputs.
 
-If you're using JCUDA and you have a Java wrapper class `src/main/java/MyClassThatCallsCuda.java` and its kernels are in `src/main/java/MyClassThatCallsCuda.cu`, you can load these kernels with:
+If you're using JCuda and you have a Java wrapper class `src/main/java/MyClassThatCallsCuda.java` and its kernels are in `src/main/java/MyClassThatCallsCuda.cu`, you can load these kernels with:
 
+    static {
         Class currentClass = new Object(){}.getClass().getEnclosingClass(); // Trick to get class in static method
         String fatbinPath = currentClass.getName().replace('.', '/') + ".fatbin";
         try( InputStream ptx = ClassLoader.getSystemResourceAsStream(fatbinPath) ) {
             cuModuleLoadData(module, IOUtils.toByteArray(ptx));
         }
+    }
 
 # Options
 

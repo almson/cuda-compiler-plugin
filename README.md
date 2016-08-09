@@ -1,6 +1,6 @@
 # Introduction
 
-This Maven plugin helps when working with mixed Java/CUDA projects (such as those powered by JCUDA) by compiling any CUDA kernel source files (ie those ending in `.cu` or `.ptx`) found in the project sources directory. The outputs will then be included in the jar file. The plugin will check modification times and avoid re-compiling the sources if it is not necessary.
+This Maven plugin helps when working with mixed Java/CUDA projects (such as those powered by JCUDA) by compiling any CUDA kernel source files (ie those ending in `.cu` or `.ptx`) found in the project sources directory. The outputs will then be included in the jar file. The plugin will check modification times and avoid re-compiling the sources if it is not necessary. Compilation is multi-threaded.
 
 # Installation
 
